@@ -1,9 +1,9 @@
 loadPackage "TorAlgebra";
 
 -- general case, brute force approach by enumerating all matrix equations. 
-n = 4;
-r = 2;
-I = toList(0, 2);
+n = 5;
+r = 3;
+I = toList(0,1, 2);
 
 Q = QQ[(n-r)*r*(#I)];
 varlist = flatten entries vars Q;
@@ -57,3 +57,6 @@ for j from 0 to (#I-1) do (
 
 print J; 
 print time isGorenstein(Q/J); 
+
+--- Issue: when there are linear terms, there's no easy way to eliminate
+--- so it will error out 
