@@ -2,10 +2,11 @@ loadPackage "TorAlgebra";
 
 -- general case, brute force approach by enumerating all matrix equations. 
 
--- assumes r <= n, I subseteq of [n-1] in increasing order
+-- assumes r < n, I subseteq of [n-1] in increasing order
+-- known bugs: sometimes you can get the error "Please provide presentation without linear terms"
 n = 3;
-r = 1;
-I = toList(0,2);
+r = 3;
+I = toList(0, 1, 2);
 
 Q = QQ[(n-r)*r*(#I)];
 varlist = flatten entries vars Q;
