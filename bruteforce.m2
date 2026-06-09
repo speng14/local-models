@@ -1,8 +1,8 @@
 loadPackage "TorAlgebra";
 
 -- general case, brute force approach by enumerating all matrix equations. 
-n = 5;
-r = 3;
+n = 4;
+r = 2;
 I = toList(0,1, 2);
 
 Q = QQ[(n-r)*r*(#I)];
@@ -47,16 +47,19 @@ for j from 0 to (#I-1) do (
     rows = apply(i..i+r-1, x -> x % n); 
     rows = set(0..n-1) - set(rows); 
     rows = toList(rows);  
-    temp = apply(n, k -> if I#((j-1)% #I) <= k and k <= ((i-1)%n) then 0 else 1);
+
+    if (j==0) then (
+        temp = apply(n, k -> if I#(j-1) <= k or k < i  then 0 else 1);
+    ) else (
+        temp = apply(n, k -> if I#(j-1) <= k and k < i then 0 else 1);
+    ); 
     D = diagonalMatrix temp;
 
     Fi = submatrix(F#j, rows, {0..r-1}); 
     Gi = submatrix(D*F#((j-1)% #I), rows, {0..r-1}); 
+
     J = J + ideal(Fi * M#j - Gi);
 ); 
 
 print J; 
 print time isGorenstein(Q/J); 
-
---- Issue: when there are linear terms, there's no easy way to eliminate
---- so it will error out 
