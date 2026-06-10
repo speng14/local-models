@@ -4,9 +4,9 @@ loadPackage "TorAlgebra";
 
 -- assumes r < n, I subseteq of [n-1] in increasing order
 -- known bugs: sometimes you can get the error "Please provide presentation without linear terms"
-n = 3;
-r = 3;
-I = toList(0, 1, 2);
+n = 5; 
+r = 2;
+I = toList(0,1, 2);
 
 Q = QQ[(n-r)*r*(#I)];
 varlist = flatten entries vars Q;
@@ -65,4 +65,5 @@ for j from 0 to (#I-1) do (
 ); 
 
 print J; 
-print time isGorenstein(Q/J); 
+
+print time isGorenstein(Q/J)
